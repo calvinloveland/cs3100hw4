@@ -26,6 +26,10 @@ int Handler::handle(vector<string> args){
 		else if(command == "history"){
 			history.print();
 		}
+		else if(command == "cd"){
+			char* directory = (char*)args[1].c_str();
+			chdir(directory);
+		}
 		else{
 			if(!fork()){
 				char **execArgs = new char*[2];
