@@ -5,4 +5,4 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "-std=c++11 -O0 ${CMAKE_CXX_FLAGS}")
 endif()
 
-add_executable(CShell main.cpp handle.cpp history.cpp)
+add_executable(CShell main.cpp handle.cpp history.cpp dirs.cpp)

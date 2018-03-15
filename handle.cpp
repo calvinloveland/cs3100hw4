@@ -3,13 +3,21 @@
 
 Handler::Handler(){
 	history = History();
+	dirs = Dirs();
 }
+
 string Handler::vstos(vector<string> vs){
 	string returnString = "";
 	for(int i = 0; i < vs.size(); i++){
 		returnString += vs[i];
 	}
 	return returnString;
+}
+
+string Handler::cwd(){
+	char buffer[64];
+	string r = getcwd(buffer, sizeof(buffer));
+	return r;
 }
 
 int Handler::handle(vector<string> args){
@@ -29,6 +37,18 @@ int Handler::handle(vector<string> args){
 		else if(command == "cd"){
 			char* directory = (char*)args[1].c_str();
 			chdir(directory);
+		}
+		else if(command == "pwd"){
+			cout << cwd() << endl;
+		}
+		else if(command == "dirs"){
+			dirs.print();
+		}
+		else if(command == "popd"){
+			cout << dirs.pop();
+		}
+		else if(command == "pushd"){
+			dirs.push(args[1]);
 		}
 		else{
 			if(!fork()){

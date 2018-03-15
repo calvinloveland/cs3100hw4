@@ -11,6 +11,7 @@
 #include <bits/stdc++.h>
 
 #include"history.hpp"
+#include"dirs.hpp"
 
 using namespace std;
 
@@ -20,7 +21,9 @@ class Handler{
 		int handle(vector<string>);
 	private:
 		History history;
+		Dirs dirs;
 		double ptime;
 
 		string vstos(vector<string>);
+		string cwd();
 };
