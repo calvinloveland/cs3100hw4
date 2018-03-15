@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
 		Handler handler;
 		bool exit = false;
 		while(!exit){
-			cout << "CShell$ ";
+			cout << "[cmd]:";
 			string command;
 			if(getline(cin,command)){
 				if (command != "exit"){
