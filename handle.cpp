@@ -54,6 +54,8 @@ int Handler::handle(vector<string> args){
 		//cout << "Command:"<< command;
 		history.add(args);	
 		int pipePos = findPipe(args);
+
+		bool die = false;
 		
 		//cout << pipePos << endl;
 		
@@ -65,7 +67,9 @@ int Handler::handle(vector<string> args){
 			if(fork() == 0){
 				pipeIn = true;
 				args = secondArgs;
-				//	handle(secondArgs);
+				//handle(secondArgs);
+				//_exit(0);
+				die = true;
 			}
 			else{
 				pipeOut = true;
@@ -127,6 +131,9 @@ int Handler::handle(vector<string> args){
 			else{
 				int wstatus;	
 				wait(&wstatus);
+				if(die){
+					_exit(0);
+				}
 				cout << endl;
 			}
 		}

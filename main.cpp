@@ -2,6 +2,7 @@
 #include<sstream>
 #include<string>
 #include<vector>
+#include<signal.h>
 
 #include "handle.hpp"
 
@@ -18,11 +19,14 @@ vector<string> split(string split){
 	return returnVector;
 }
 
+void doNothing(int useless){}
+
 int main(int argc, char *argv[]){
+		signal(SIGINT,doNothing);
 		Handler handler;
 		bool exit = false;
 		while(!exit){
-			cout << "[cmd]:";
+			cout << "["<<handler.cwd()<<"]:";
 			string command;
 			if(getline(cin,command)){
 				if (command != "exit"){

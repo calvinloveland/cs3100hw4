@@ -22,6 +22,7 @@ class Handler{
 	public:
 		Handler();
 		int handle(vector<string>);
+		string cwd();
 	private:
 		History history;
 		Dirs dirs;
@@ -32,6 +33,5 @@ class Handler{
 
 		string vstos(vector<string>);
 		char** vstocpp(vector<string>);
-		string cwd();
 		int findPipe(vector<string>);
 };
