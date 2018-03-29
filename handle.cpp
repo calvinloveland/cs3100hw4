@@ -10,7 +10,7 @@ Handler::Handler(){
 	dirs = Dirs();
 	pipeOut = false;
 	pipeIn = false;
-	currentPipe[2];
+	
 }
 
 string Handler::vstos(vector<string> vs){
@@ -51,21 +51,21 @@ int Handler::handle(vector<string> args){
 	if(args.size() > 0){
 		auto start = chrono::system_clock::now();
 		string command = args[0];
-		cout << "Command:"<< command;
+		//cout << "Command:"<< command;
 		history.add(args);	
 		int pipePos = findPipe(args);
 		
-		cout << pipePos << endl;
+		//cout << pipePos << endl;
 		
 		if(pipePos != -1){
 			pipe(currentPipe);
+			vector<string> secondArgs = vector<string>(begin(args) + pipePos +1, end(args));
 			args = vector<string>(begin(args), begin(args) + pipePos);
-			cout <<"FIRST:" <<vstos(args) << endl;
+			//cout <<"FIRST:" <<vstos(args) << "SECOND:"<< vstos(secondArgs)<<endl;
 			if(fork() == 0){
 				pipeIn = true;
-				vector<string> secondArgs = vector<string>(begin(args) + pipePos, end(args));
-				cout << "SECOND:" << vstos(secondArgs) << endl;
-				handle(secondArgs);
+				args = secondArgs;
+				//	handle(secondArgs);
 			}
 			else{
 				pipeOut = true;
@@ -100,12 +100,21 @@ int Handler::handle(vector<string> args){
 		else{
 			if(fork() == 0){
 				if(pipeIn){
+
+					cout << "Piping in:" << vstos(args);
 					dup2(currentPipe[READ], STDIN_FILENO);
 					pipeIn = false;
+
 				}
 				else if(pipeOut){
+
+					cout << "Piping out:" << vstos(args);
 					dup2(currentPipe[WRITE], STDOUT_FILENO);
 					pipeOut = false;
+
+				}
+				else{
+				cout<<"NOT PIPING";
 				}
 
 
@@ -116,7 +125,8 @@ int Handler::handle(vector<string> args){
 				_exit(1);
 			}
 			else{
-				wait();
+				int wstatus;	
+				wait(&wstatus);
 				cout << endl;
 			}
 		}

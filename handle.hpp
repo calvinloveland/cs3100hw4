@@ -9,6 +9,9 @@
 #include<unistd.h>
 #include <sys/types.h>
 #include <bits/stdc++.h>
+#include <sys/wait.h>
+
+
 
 #include"history.hpp"
 #include"dirs.hpp"
@@ -25,7 +28,7 @@ class Handler{
 		double ptime;
 		bool pipeOut;
 		bool pipeIn;
-		int * currentPipe;
+		int currentPipe[];
 
 		string vstos(vector<string>);
 		char** vstocpp(vector<string>);
