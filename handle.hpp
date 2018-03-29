@@ -23,7 +23,12 @@ class Handler{
 		History history;
 		Dirs dirs;
 		double ptime;
+		bool pipeOut;
+		bool pipeIn;
+		int * currentPipe;
 
 		string vstos(vector<string>);
+		char** vstocpp(vector<string>);
 		string cwd();
+		int findPipe(vector<string>);
 };
